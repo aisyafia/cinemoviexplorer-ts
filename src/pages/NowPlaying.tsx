@@ -7,14 +7,12 @@ type MovieObject = {
 };
 
 type MovieResponse = {
-  //   dates: { string: string };
-  //   page: number;
-  results: any[];
+  results: MovieObject[];
 };
 
-const NowPlaying = () => {
+const NowPlaying: React.FC<{}> = () => {
   const [like, setLike] = useState<boolean>(false);
-  const [movieObj, setMovieObj] = useState<any[]>([]);
+  const [movieObj, setMovieObj] = useState<MovieObject[] | null>(null);
 
   const getNowPlaying = async () => {
     const response = await axios.get<MovieResponse>(
@@ -30,8 +28,20 @@ const NowPlaying = () => {
   return (
     <div>
       <h2>Now Playing in your area:</h2>
-      <button onClick={() => setLike(!like)}>Like</button>
-      {like ? <p>Liked</p> : <></>}
+      {movieObj !== null ? (
+        movieObj.map((mov) => {
+          return (
+            <div>
+              <h2>{mov.title}</h2>
+              <p>{mov.overview}</p>
+              <button onClick={() => setLike(!like)}>Like</button>
+              {like ? <p>Liked</p> : <></>}
+            </div>
+          );
+        })
+      ) : (
+        <h3>Loading...</h3>
+      )}
     </div>
   );
 };
