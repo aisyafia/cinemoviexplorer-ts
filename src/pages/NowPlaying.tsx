@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LikeButton from "../components/LikeButton";
+import { Link } from "react-router-dom";
 
 type MovieObject = {
   id: number;
@@ -13,7 +15,6 @@ type MovieResponse = {
 };
 
 const NowPlaying: React.FC<{}> = () => {
-  const [like, setLike] = useState<[] | null>([]);
   const [movieObj, setMovieObj] = useState<MovieObject[] | null>(null);
 
   const getNowPlaying = async () => {
@@ -32,19 +33,21 @@ const NowPlaying: React.FC<{}> = () => {
   return (
     <div>
       <h2>Now Playing in your area:</h2>
+
       {movieObj !== null ? (
         movieObj.map((mov) => {
           return (
             <div key={mov.id}>
-              <h2>{mov.title}</h2>
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${mov.poster_path}`}
-                alt={mov.title}
-                width="215rem"
-              />
+              <Link to={`/movie/${mov.id}`}>
+                <h2>{mov.title}</h2>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${mov.poster_path}`}
+                  alt={mov.title}
+                  width="215rem"
+                />
+              </Link>
               <p>{mov.overview}</p>
-              <button>Like</button>
-              {like ? <p>Liked</p> : <></>}
+              <LikeButton />
             </div>
           );
         })
