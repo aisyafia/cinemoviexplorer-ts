@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 type MovieObject = {
+  id: number;
   title: string;
   overview: string;
+  poster_path: string;
 };
 
 type MovieResponse = {
@@ -11,7 +13,7 @@ type MovieResponse = {
 };
 
 const NowPlaying: React.FC<{}> = () => {
-  const [like, setLike] = useState<boolean>(false);
+  const [like, setLike] = useState<[] | null>([]);
   const [movieObj, setMovieObj] = useState<MovieObject[] | null>(null);
 
   const getNowPlaying = async () => {
@@ -25,16 +27,23 @@ const NowPlaying: React.FC<{}> = () => {
     getNowPlaying();
   }, []);
 
+  //   const handleLike = (id: number) => setLike(!like);
+
   return (
     <div>
       <h2>Now Playing in your area:</h2>
       {movieObj !== null ? (
         movieObj.map((mov) => {
           return (
-            <div>
+            <div key={mov.id}>
               <h2>{mov.title}</h2>
+              <img
+                src={`https://image.tmdb.org/t/p/w500/${mov.poster_path}`}
+                alt={mov.title}
+                width="215rem"
+              />
               <p>{mov.overview}</p>
-              <button onClick={() => setLike(!like)}>Like</button>
+              <button>Like</button>
               {like ? <p>Liked</p> : <></>}
             </div>
           );
