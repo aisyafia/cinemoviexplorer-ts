@@ -7,7 +7,7 @@ export interface Movie {
   overview: string;
   poster_path: string;
   genre_ids?: number[];
-  vote_average: number;
+  vote_average?: number;
 }
 
 type MovieState = {
@@ -25,6 +25,7 @@ export const fetchMovies = createAsyncThunk<Movie[]>(
       const response = await axios.get(
         "https://api.themoviedb.org/3/movie/now_playing?api_key=a0fdd7d682edade22bbce21b7ecf4554&language=en-US&page=1&region=NL"
       );
+      console.log("thunk works?", response.data.results);
       return response.data.results;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -38,8 +39,14 @@ export const movieSlice = createSlice({
   initialState: initialState,
   reducers: {
     allMoviesFetched: (state, action: PayloadAction<Movie[]>) => {
+      // console.log("payload?", action.payload);
       state.movies = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
+    });
   },
 });
 

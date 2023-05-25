@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import LikeButton from "../components/LikeButton";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../store";
+import { fetchMovies } from "../store/movieSlice";
+import { useAppSelector } from "../store";
 
 type MovieObject = {
   id: number;
@@ -10,32 +12,20 @@ type MovieObject = {
   poster_path: string;
 };
 
-type MovieResponse = {
-  results: MovieObject[];
-};
-
 const NowPlaying: React.FC<{}> = () => {
-  const [movieObj, setMovieObj] = useState<MovieObject[] | null>(null);
-
-  const getNowPlaying = async () => {
-    const response = await axios.get<MovieResponse>(
-      "https://api.themoviedb.org/3/movie/now_playing?api_key=a0fdd7d682edade22bbce21b7ecf4554&language=en-US&page=1&region=NL"
-    );
-    setMovieObj(response.data.results);
-  };
+  const dispatch = useAppDispatch();
+  const { movies } = useAppSelector((state) => state.movie);
 
   useEffect(() => {
-    getNowPlaying();
-  }, []);
-
-  //   const handleLike = (id: number) => setLike(!like);
+    dispatch(fetchMovies());
+  }, [dispatch]);
 
   return (
     <div>
       <h2>Now Playing in your area:</h2>
 
-      {movieObj !== null ? (
-        movieObj.map((mov) => {
+      {movies !== null ? (
+        movies.map((mov) => {
           return (
             <div key={mov.id}>
               <Link to={`/movie/${mov.id}`}>
