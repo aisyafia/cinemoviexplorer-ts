@@ -26,7 +26,7 @@ const initialState: MovieState = {
 };
 
 export const fetchMovies = createAsyncThunk<Movie[]>(
-  "movies/fetch",
+  "NP/fetch",
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -42,7 +42,7 @@ export const fetchMovies = createAsyncThunk<Movie[]>(
 );
 
 export const fetchMovieById = createAsyncThunk<Movie, number>(
-  "movies/fetchById",
+  "NP/fetchById",
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(
@@ -51,6 +51,22 @@ export const fetchMovieById = createAsyncThunk<Movie, number>(
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchUpcoming = createAsyncThunk<Movie[]>(
+  "UP/fetch",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=a0fdd7d682edade22bbce21b7ecf4554&language=en-US&page=1&region=NL"
+      );
+      // console.log("thunk works?", response.data.results);
+      return response.data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+      console.log("An error has occured:", error);
     }
   }
 );
@@ -70,6 +86,9 @@ export const movieSlice = createSlice({
     });
     builder.addCase(fetchMovieById.fulfilled, (state, action) => {
       state.singleMovie = action.payload;
+    });
+    builder.addCase(fetchUpcoming.fulfilled, (state, action) => {
+      state.movies = action.payload;
     });
   },
 });

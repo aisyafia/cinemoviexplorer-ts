@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import LikeButton from "../components/LikeButton";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../store";
 import { fetchMovies } from "../store/movieSlice";
@@ -30,8 +29,7 @@ const NowPlaying: React.FC<{}> = () => {
                   borderRadius: 2,
                   margin: 2,
                   padding: 3,
-                  backgroundImage:
-                    "linear-gradient(90deg, rgb(255,219, 203), rgb(255,190,163))",
+                  backgroundColor: "rgb(248,248,255)",
                 }}
               >
                 <Link
@@ -45,7 +43,6 @@ const NowPlaying: React.FC<{}> = () => {
                     width="215rem"
                   />
                 </Link>
-                <LikeButton />
               </Grid>
             );
           })

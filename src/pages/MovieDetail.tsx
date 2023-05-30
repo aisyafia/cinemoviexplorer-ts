@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { useEffect } from "react";
 import { fetchMovieById } from "../store/movieSlice";
 import { useParams } from "react-router-dom";
+import LikeButton from "../components/LikeButton";
 
 const MovieDetail = () => {
   const dispatch = useAppDispatch();
@@ -16,8 +17,8 @@ const MovieDetail = () => {
 
   return (
     <div>
-      <Container sx={{ marginTop: 10 }}>
-        <Typography variant="h5" fontWeight={500}>
+      <Container sx={{ marginTop: 5 }}>
+        <Typography variant="h4" fontWeight={500}>
           {singleMovie?.title}
         </Typography>
         <Grid container sx={{ borderRadius: 2, margin: 2, padding: 3 }}>
@@ -26,15 +27,21 @@ const MovieDetail = () => {
               src={`https://image.tmdb.org/t/p/w500/${singleMovie?.poster_path}`}
               width={250}
             />
+            <LikeButton />
             <Typography variant="body2">
-              Likes: {singleMovie?.vote_average}
+              Average score: {singleMovie?.vote_average}
             </Typography>
           </Grid>
           <Grid item xs={4} padding={2}>
             <Typography variant="subtitle1">{singleMovie?.overview}</Typography>
+            <br />
             <Typography variant="subtitle2">Genre:</Typography>
             {singleMovie?.genres?.map((g) => {
-              return <Typography variant="subtitle2">{g.name}</Typography>;
+              return (
+                <Typography variant="subtitle2" key={g.id}>
+                  {g.name}
+                </Typography>
+              );
             })}
           </Grid>
         </Grid>
