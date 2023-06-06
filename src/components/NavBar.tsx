@@ -14,8 +14,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Now Playing", "Coming Soon"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { href: "/login", title: "Log In" },
+  {
+    href: "/profile",
+    title: "Profile",
+  },
+  {
+    href: "/settings",
+    title: "Settings",
+  },
+];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -175,8 +184,10 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
+                  <NavLink style={{ textDecoration: "none" }} to={setting.href}>
+                    {setting.title}
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>

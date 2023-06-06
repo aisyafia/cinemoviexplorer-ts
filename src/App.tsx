@@ -1,11 +1,10 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import NowPlaying from "./pages/NowPlaying";
 import ComingSoon from "./pages/ComingSoon";
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
 import MovieDetail from "./pages/MovieDetail";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -16,6 +15,7 @@ function App() {
         <Route path="/" element={<NowPlaying />} />
         <Route path="/soon" element={<ComingSoon />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );
