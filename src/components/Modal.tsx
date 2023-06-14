@@ -19,7 +19,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import SignUpForm from "../components/SignUpForm";
+import SignUpForm from "./SignUpForm";
 
 const style = {
   position: "absolute" as "absolute",
@@ -53,7 +53,7 @@ export default function ModalMUI() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Sign up for more access!
           </Typography>
-          <SignUpForm />
+          <SignUpForm open={false} />
         </Box>
       </Modal>
     </div>

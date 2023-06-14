@@ -1,7 +1,7 @@
 import { Box, TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import ModalMUI from "../ModalPopUp/Modal";
+import ModalMUI from "../components/Modal";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");

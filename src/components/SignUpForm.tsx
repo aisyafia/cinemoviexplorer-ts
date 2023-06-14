@@ -1,7 +1,11 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 
-const SignUpForm = () => {
+interface ModalProps {
+  open: boolean;
+}
+
+const SignUpForm = (props: ModalProps) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -12,6 +16,7 @@ const SignUpForm = () => {
     setEmail("");
     setName("");
     setPassword("");
+    props.open = !props.open;
   };
 
   return (
