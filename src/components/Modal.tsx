@@ -33,6 +33,18 @@ const style = {
   p: 4,
 };
 
+const buttonStyle = {
+  left: "85%",
+  top: "5%",
+  height: "20",
+  width: "auto",
+  fontSize: "0.75rem",
+  border: "none",
+  borderRadius: "4px",
+  marginLeft: "0.5rem",
+  bgcolor: "ButtonShadow",
+};
+
 export default function ModalMUI() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -50,10 +62,13 @@ export default function ModalMUI() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Button onClick={handleClose} sx={buttonStyle}>
+            X
+          </Button>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Sign up for more access!
           </Typography>
-          <SignUpForm open={false} />
+          <SignUpForm handleClose={handleClose} />
         </Box>
       </Modal>
     </div>

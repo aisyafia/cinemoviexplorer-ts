@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 
 interface ModalProps {
-  open: boolean;
+  handleClose: () => void;
 }
 
 const SignUpForm = (props: ModalProps) => {
@@ -16,7 +16,7 @@ const SignUpForm = (props: ModalProps) => {
     setEmail("");
     setName("");
     setPassword("");
-    props.open = !props.open;
+    props.handleClose();
   };
 
   return (
